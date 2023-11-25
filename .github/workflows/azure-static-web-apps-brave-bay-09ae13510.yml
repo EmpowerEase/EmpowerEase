@@ -33,8 +33,7 @@ jobs:
 
       # Generate Prisma Client
       - name: Generate Prisma Client
-        run: npx prisma generate
-        working-directory: ./empowerease
+        run: npx prisma generate --schema=./empowerease/prisma/schema.prisma
         
       - name: Build And Deploy
         id: builddeploy
