@@ -26,6 +26,10 @@ jobs:
         with:
           node-version: '18.17.1'
 
+      - name: List files in the working directory
+        run: ls -la
+        working-directory: ./your-app-directory
+
       # Install dependencies
       - name: Install Dependencies
         run: npm install --omit=dev
