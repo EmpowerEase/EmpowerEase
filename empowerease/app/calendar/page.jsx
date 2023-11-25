@@ -1,11 +1,14 @@
-import React from 'react';
+import React from "react";
+import Navbar from "../Navbar/navbar";
 
-const Pages = () => {
+const CalendarPage = () => {
   return (
-    <div>
-      <h1>Hello, Next.js!</h1>
-    </div>
+      <div>
+        {/* Your calendar page content goes here */}
+        <Navbar/>
+        <h1>Calendar Page</h1>
+      </div>
   );
 };
 
-export default Pages;
+export default CalendarPage;

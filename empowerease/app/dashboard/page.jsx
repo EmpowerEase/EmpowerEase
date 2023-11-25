@@ -1,9 +1,17 @@
 import React from 'react';
+// import Navbar from '../Navbar/navbar';
+import Goal from './Goal/goal';
+import Navbar from '../Navbar/navbar';
+import Break from './Break/break';
 
 const Pages = () => {
   return (
     <div>
-      <h1>Hello, Next.js!</h1>
+      <Navbar />
+      <div>
+        <Goal />
+        <Break />
+      </div>
     </div>
   );
 };
