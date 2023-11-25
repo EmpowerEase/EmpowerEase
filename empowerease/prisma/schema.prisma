@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String     @id @default(auto()) @map("_id")  @db.ObjectId
+  breakDuration     Int?       // in minutes
+  preferredBreakTime String[]  // could be 'morning', 'afternoon', 'evening'
+  tasks             Task[]     
+  taskStats         TaskStats[]
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  schedules         Schedule[]
+  goals             Goal[]
+}
+
+model Goal {
+  id            String    @id @default(auto()) @map("_id")  @db.ObjectId
+  summary       String
+  estimatedTime Int       // in hours
+  deadline      DateTime
+  debrief       String?
+  isCompleted   Boolean   @default(false)
+  userId        String   @map("user_id")  @db.ObjectId
+  user           User?     @relation(fields: [userId], references: [id])
+}
+
+model Task {
+  id            String    @id @default(auto()) @map("_id")  @db.ObjectId
+  summary       String
+  estimatedTime Int       // in hours
+  deadline      DateTime
+  isCompleted   Boolean   @default(false)
+  debrief       String?
+  difficulty    Int?
+  userId        String?   @map("user_id")  @db.ObjectId
+  user          User?     @relation(fields: [userId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  scheduleId    String?   @map("schedule_id")  @db.ObjectId
+  schedule      Schedule? @relation(fields: [scheduleId], references: [id])
+}
+
+model Schedule {
+  id        String   @id @default(auto()) @map("_id")  @db.ObjectId
+  date      DateTime
+  userId    String   @map("user_id")  @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  tasks     Task[]
+  breaks    Break[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Break {
+  id         String   @id @default(auto()) @map("_id")  @db.ObjectId
+  timeSlot   String   // Format "HH:MM-HH:MM"
+  scheduleId String   @map("schedule_id")  @db.ObjectId
+  schedule   Schedule @relation(fields: [scheduleId], references: [id])
+}
+
+model TaskStats {
+  id             String   @id @default(auto()) @map("_id")  @db.ObjectId
+  date           DateTime
+  completedTasks Int
+  pendingTasks   Int
+  completedOnTime Int
+  neededMoreTime Int
+  completedEarly Int
+  userId         String   @map("user_id")  @db.ObjectId
+  user           User?     @relation(fields: [userId], references: [id])
+  @@unique([userId, date], name: "userId_date")
+}
