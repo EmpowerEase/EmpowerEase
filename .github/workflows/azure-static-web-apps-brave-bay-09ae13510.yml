@@ -28,7 +28,7 @@ jobs:
 
       - name: List files in the working directory
         run: ls -la
-        working-directory: ./your-app-directory
+        working-directory: ./
 
       # Install dependencies
       - name: Install Dependencies
