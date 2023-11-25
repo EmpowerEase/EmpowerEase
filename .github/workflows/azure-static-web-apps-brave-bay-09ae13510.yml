@@ -28,12 +28,13 @@ jobs:
 
       # Install dependencies
       - name: Install Dependencies
-        run: npm install
+        run: npm install --omit=dev
         working-directory: ./empowerease
 
       # Generate Prisma Client
       - name: Generate Prisma Client
-        run: npx prisma generate --schema=./empowerease/prisma/schema.prisma
+        run: npx prisma generate --schema=./prisma/schema.prisma
+        working-directory: ./empowerease
         
       - name: Build And Deploy
         id: builddeploy
