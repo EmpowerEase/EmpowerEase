@@ -7,7 +7,9 @@ const Pages = () => {
     <div>
       <h1>Hello, Next.js!</h1>
       <Profile />
-      <Statistics />
+      <div className="w-full overflow-x-hidden">
+        <Statistics />
+      </div>
     </div>
   );
 };

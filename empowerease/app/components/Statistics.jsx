@@ -12,11 +12,11 @@ const chartSetting = {
       label: "Number of Tasks",
     },
   ],
-  width: 500,
+  // width: 500,
   height: 300,
   sx: {
     [`.${axisClasses.left} .${axisClasses.label}`]: {
-      transform: "translate(-20px, 0)",
+      transform: "translate(0, 0)",
     },
   },
 };
@@ -59,7 +59,7 @@ export default function TasksCompletionBarChart() {
       day,
       completedOnTime: 8,
       neededMoreTime: 5,
-      completedEarly: 4,
+      completedEarly: 6,
     }));
   };
 
