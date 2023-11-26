@@ -18,7 +18,7 @@ const Navbar = () => {
       style={{ backgroundColor: "white", color: "black", height: 80 }}
     >
       <Toolbar>
-        <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           EmpowerEnergize
         </Typography>
         <Link href="/dashboard" passHref prefetch={false}>
