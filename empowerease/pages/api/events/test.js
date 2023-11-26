@@ -84,7 +84,7 @@ const insertEvent = async (event) => {
 //let dateTime = dateTimeForCalander();
 
 // // Event for Google Calendar
-let dateStart = "2023-11-25T20:00:00.000" + TIMEOFFSET;
+/*let dateStart = "2023-11-25T20:00:00.000" + TIMEOFFSET;
 let dateEnd = "2023-11-25T21:00:00.000" + TIMEOFFSET;
 let title = "Test insert again";
 
@@ -98,15 +98,15 @@ let event = {
     dateTime: dateEnd,
     timeZone: "UTC",
   },
-};
+};*/
 
-insertEvent(event)
+/*insertEvent(event)
   .then((res) => {
     console.log(res);
   })
   .catch((err) => {
     console.log(err);
-  });
+  });*/
 
 export const updateEvents = (title, start, end) => {
   let event = {
@@ -164,9 +164,12 @@ getEvents(start, end)
 
 export default function handler(req, res) {
   if (req.method === "POST") {
+    console.log("vvv!");
+    console.log(req.body);
+    console.log("^^^");
     // put your insert code here
     const { title, dateStart, dateEnd } = req.body;
-
+    //console.log(dateStart);
     let event = {
       summary: title,
       start: {

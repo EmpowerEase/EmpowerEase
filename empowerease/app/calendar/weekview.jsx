@@ -7,33 +7,42 @@ const FullCalendar = dynamic(() => import("@fullcalendar/react"), {
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { Box } from "@mui/material";
 import axios from "axios";
-// import { updateEvents } from "./googlecalls";
-
-//const TIMEOFFSET = '-05:00';
-
-// const event = [
-//   {
-//     title: "Demo Data 1",
-//     start: "2023-11-25T08:30:00-05:00",
-//     end: "2023-11-25T09:30:00-05:00",
-//   },
-//   {
-//     title: "Demo Data 2",
-//     start: "2023-11-26T10:00:00-05:00",
-//     end: "2023-11-26T11:30:00-05:00",
-//   },
-// ];
 
 const WeekView = () => {
   const [events, setEvents] = useState([]);
+  const [uploaded, setUploaded] = useState(false);
+  const [refreshed, setRefreshed] = useState(false);
 
   const fetchData = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/events", {
-        title: "Demo Data 2",
-      });
-      console.log(response.data.data);
-      setEvents(response.data.data);
+      let titles = ["Read documents", "Fix bugs", "Do HR trainings", "break"];
+
+      if (!uploaded) {
+        await Promise.all(
+          titles.map(async (eventTitle) => {
+            const response = await axios.post(
+              "http://localhost:3000/api/events",
+              {
+                title: eventTitle,
+              }
+            );
+
+            // Append new events to the existing array
+            setEvents((prevEvents) => [...prevEvents, ...response.data.data]);
+
+            for (let event of response.data.data) {
+              await axios.post("http://localhost:3000/api/events/test", {
+                title: event.title,
+                dateStart: event.start,
+                dateEnd: event.end,
+              });
+            }
+          })
+        );
+
+        setUploaded(true);
+      }
+
       // Process the response data as needed
       // const google_response = axios.post(
       //   "http://localhost:3000/api/events/test",
@@ -43,23 +52,19 @@ const WeekView = () => {
       //     dateEnd: "2023-11-26T23:59:00.000-05:00",
       //   }
       // );
-      // Promise.all(
-      //   events.map((event) =>
-      //     axios.post("http://localhost:3000/api/events/test", {
-      //       title: event.title,
-      //       dateStart: event.start,
-      //       dateEnd: event.end,
-      //     })
-      //   )
-      // )
-      //   .then((responses) => {
-      //     // Handle responses here
-      //     // 'responses' is an array of all the responses from the axios.post calls
-      //   })
-      //   .catch((error) => {
-      //     // Handle error
-      //     console.error(error);
-      //   });
+
+      // if (!uploaded) {
+      //   for (let i = 0; i < response.data.data.length; i++) {
+      //     console.log("Im an event!");
+      //     // events[i];
+      //     await axios.post("http://localhost:3000/api/events/test", {
+      //       title: response.data.data[i].title,
+      //       dateStart: response.data.data[i].start,
+      //       dateEnd: response.data.data[i].end,
+      //     });
+      //   }
+      //   setUploaded(true);
+      // }
     } catch (error) {
       console.error("Error fetching data:", error);
       // Handle  error
@@ -68,12 +73,25 @@ const WeekView = () => {
     }
   };
 
-  fetchData();
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     fetchData();
+  //   }
+  //   // console.log("added");
+  // }, []);
 
-  //useEffect(() => {}, []);
+  useEffect(() => {
+    if (!uploaded && refreshed) {
+      fetchData();
+      setRefreshed(false);
+    }
+    console.log();
+  }, [refreshed]);
 
   return (
     <div className="max-w-screen-lg h-100% mx-auto p-4 overflow-hidden bg-blue-100">
+      <button onClick={() => setRefreshed(true)}>Refresh</button>
+
       <Box sx={{ bgcolor: "white" }}>
         <FullCalendar
           style={{ maxHeight: "100%" }}
