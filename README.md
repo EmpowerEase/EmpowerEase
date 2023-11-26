@@ -1,8 +1,8 @@
 # EmpowerEase
 
-### Tech Stacks: Next.JS with API Router, Prisma, MongoDB Atlas, MUI, Tailwind CSS
+## Tech Stacks: Next.JS with API Router, Prisma, MongoDB Atlas, MUI, Tailwind CSS
 
-### What our app do?
+### What our app does?
 
 EmpowerEase integrates intelligent task scheduling with a focus on well-being, automatically allocating breaks for users to foster a healthier work-life balance. What sets EmpowerEase apart is its integration with the user's Google Calendar. The app ensures tasks it schedules do not overlap with existing calendar events and, conversely, adds scheduled tasks and breaks into the Google Calendar. This integration provides users with the option to view their schedule not only on our app but also on their Google Calendar.
 
