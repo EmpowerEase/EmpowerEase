@@ -7,7 +7,20 @@ import ListItemText from "@mui/material/ListItemText";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { Box, Button, Modal, Typography, TextField, Slider, InputLabel, MenuItem, Paper, FormControl, Select, Grid} from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  Typography,
+  TextField,
+  Slider,
+  InputLabel,
+  MenuItem,
+  Paper,
+  FormControl,
+  Select,
+  Grid,
+} from "@mui/material";
 
 function Goal() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -19,26 +32,27 @@ function Goal() {
   const [difficultyValue, setDifficultyValue] = useState(5);
   const [completionSelection, setCompletionSelection] = React.useState("");
   const [debriefSubmit, setSubmittedDebrief] = useState([]);
-  
+
   const handleSubmitDebrief = () => {
     // Do something with the selected values and send them to an API
     console.log("Completion Selection:", completionSelection);
     console.log("Difficulty Value:", difficultyValue);
-    
+
     // Reset the form after submission if needed
     setCompletionSelection(10);
     setDifficultyValue(0);
 
     handlePendingCloseModal();
+    handleDeleteGoal(index);
   };
 
   const handleChange = (event) => {
     setCompletionSelection(event.target.value);
   };
-  
+
   const handleSliderChange = (event, newValue) => {
-        setDifficultyValue(newValue);
-    };
+    setDifficultyValue(newValue);
+  };
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -54,7 +68,7 @@ function Goal() {
 
   const handlePendingCloseModal = () => {
     setPendingModalOpen(false);
-    };
+  };
 
   const handleAddGoal = () => {
     // Add the submitted goal to the submittedGoals array
@@ -97,7 +111,6 @@ function Goal() {
     );
   };
 
-  
   return (
     <Paper
       // sx={{

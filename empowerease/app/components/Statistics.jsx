@@ -29,7 +29,9 @@ export default function TasksCompletionBarChart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/tasks/completion-stats");
+        const response = await axios.get(
+          "http://localhost:3000/api/tasks/completion-stats"
+        );
         if (response.data.stats && response.data.stats.length > 0) {
           const transformedData = response.data.stats.map((stat) => {
             const date = new Date(stat.date);
@@ -42,6 +44,7 @@ export default function TasksCompletionBarChart() {
             };
           });
           setData(transformedData);
+          console.log(transformedData);
         } else {
           setData(getDefaultData());
         }
@@ -74,9 +77,9 @@ export default function TasksCompletionBarChart() {
       series={[
         {
           // color: "#1B2845",
-         
+
           color: "#6F73D2",
-         
+
           dataKey: "completedOnTime",
           label: "OnTime",
           valueFormatter,
@@ -84,7 +87,7 @@ export default function TasksCompletionBarChart() {
         {
           // color: "#335C81",
           color: "#83C9F4",
-         
+
           dataKey: "neededMoreTime",
           label: "MoreTime",
           valueFormatter,
@@ -92,7 +95,7 @@ export default function TasksCompletionBarChart() {
         {
           // color: "#65AFFF",
           color: "#A3D5FF",
-         
+
           dataKey: "completedEarly",
           label: "Early",
           valueFormatter,

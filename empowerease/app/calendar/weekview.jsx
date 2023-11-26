@@ -7,7 +7,7 @@ const FullCalendar = dynamic(() => import("@fullcalendar/react"), {
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { Box } from "@mui/material";
 import axios from "axios";
-import { updateEvents } from "./googlecalls";
+// import { updateEvents } from "./googlecalls";
 
 //const TIMEOFFSET = '-05:00';
 
@@ -34,28 +34,43 @@ const WeekView = () => {
       });
       console.log(response.data.data);
       setEvents(response.data.data);
-      Promise.all(
-        events.map((event) => updateEvents(event.title, event.start, event.end))
-      )
-        .then((responses) => {
-          // Handle responses here
-          // 'responses' is an array of all the responses from the axios.post calls
-          console.log(responses);
-        })
-        .catch((error) => {
-          // Handle error
-          console.error(error);
-        });
       // Process the response data as needed
+      // const google_response = axios.post(
+      //   "http://localhost:3000/api/events/test",
+      //   {
+      //     title: "test",
+      //     dateStart: "2023-11-25T00:00:00.000-05:00",
+      //     dateEnd: "2023-11-26T23:59:00.000-05:00",
+      //   }
+      // );
+      // Promise.all(
+      //   events.map((event) =>
+      //     axios.post("http://localhost:3000/api/events/test", {
+      //       title: event.title,
+      //       dateStart: event.start,
+      //       dateEnd: event.end,
+      //     })
+      //   )
+      // )
+      //   .then((responses) => {
+      //     // Handle responses here
+      //     // 'responses' is an array of all the responses from the axios.post calls
+      //   })
+      //   .catch((error) => {
+      //     // Handle error
+      //     console.error(error);
+      //   });
     } catch (error) {
       console.error("Error fetching data:", error);
-      // Handle error
+      // Handle  error
+    } finally {
+      console.log("test");
     }
   };
 
   fetchData();
 
-  useEffect(() => {}, []);
+  //useEffect(() => {}, []);
 
   return (
     <div className="max-w-screen-lg h-100% mx-auto p-4 overflow-hidden bg-blue-100">
