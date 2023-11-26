@@ -24,8 +24,12 @@ import {
 
 function Goal() {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [goalText, setGoalText] = useState("");
-  const [estimatedTime, setEstimatedTime] = useState("");
+  const [goalOneText, setGoalOneText] = useState("");
+  const [goalTwoText, setGoalTwoText] = useState("");
+  const [goalThreeText, setGoalThreeText] = useState("");
+  const [estimatedOneTime, setEstimatedOneTime] = useState("");
+  const [estimatedTwoTime, setEstimatedTwoTime] = useState("");
+  const [estimatedThreeTime, setEstimatedThreeTime] = useState("");
   const [deadline, setDeadline] = useState("");
   const [submittedGoals, setSubmittedGoals] = useState([]);
   const [isPendingModalOpen, setPendingModalOpen] = useState(false);
@@ -43,7 +47,6 @@ function Goal() {
     setDifficultyValue(0);
 
     handlePendingCloseModal();
-    handleDeleteGoal(index);
   };
 
   const handleChange = (event) => {
@@ -72,17 +75,36 @@ function Goal() {
 
   const handleAddGoal = () => {
     // Add the submitted goal to the submittedGoals array
-    const newGoal = {
-      goalText: goalText,
-      estimatedTime: estimatedTime,
+    const newGoal1 = {
+      goalText: goalOneText,
+      estimatedTime: estimatedOneTime,
       deadline: deadline,
       completed: false, // Initialize as not completed
     };
-    setSubmittedGoals((prevGoals) => [...prevGoals, newGoal]);
+
+    const newGoal2 = {
+      goalText: goalTwoText,
+      estimatedTime: estimatedTwoTime,
+      deadline: deadline,
+      completed: false,
+    };
+
+    const newGoal3 = {
+      goalText: goalThreeText,
+      estimatedTime: estimatedThreeTime,
+      deadline: deadline,
+      completed: false,
+    };
+
+    setSubmittedGoals((prevGoals) => [...prevGoals, newGoal1, newGoal2, newGoal3]);
 
     // Clear the form fields
-    setGoalText("");
-    setEstimatedTime("");
+    setGoalOneText("");
+    setGoalTwoText("");
+    setGoalThreeText("");
+    setEstimatedOneTime("");
+    setEstimatedTwoTime("");
+    setEstimatedThreeTime("");
     setDeadline("");
 
     handleCloseModal();
@@ -129,6 +151,8 @@ function Goal() {
         height: "270px",
         background: "linear-gradient(to bottom, #6F73D2, #9ECCF1)", // Blue gradient background
         color: "white",
+        overflowY: "scroll",
+        overflow: "hidden",
       }}
     >
       {/* Add goal button */}
@@ -301,7 +325,7 @@ function Goal() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 300,
+            width: 400,
             backgroundColor: "white",
             padding: 2,
             borderRadius: 4,
@@ -310,15 +334,55 @@ function Goal() {
           <Typography variant="h6" gutterBottom>
             Goal Form
           </Typography>
-          {/* Goal Text */}
+          {/* Goal #1 Text */}
           <Typography variant="subtitle1" gutterBottom>
-            Description
+            Goal #1
           </Typography>
           <TextField
             variant="outlined"
             fullWidth
-            value={goalText}
-            onChange={(e) => setGoalText(e.target.value)}
+            value={goalOneText}
+            onChange={(e) => setGoalOneText(e.target.value)}
+          />
+          {/* Estimated Time */}
+          <Typography variant="subtitle1" gutterBottom>
+            Estimated Time
+          </Typography>
+          <TextField
+            variant="outlined"
+            fullWidth
+            value={estimatedOneTime}
+            onChange={(e) => setEstimatedOneTime(e.target.value)}
+          />
+          {/* Goal #2 Text */}
+          <Typography variant="subtitle1" gutterBottom>
+            Goal #2
+          </Typography>
+          <TextField
+            variant="outlined"
+            fullWidth
+            value={goalTwoText}
+            onChange={(e) => setGoalTwoText(e.target.value)}
+          />
+          {/* Estimated Time */}
+          <Typography variant="subtitle1" gutterBottom>
+            Estimated Time
+          </Typography>
+          <TextField
+            variant="outlined"
+            fullWidth
+            value={estimatedTwoTime}
+            onChange={(e) => setEstimatedTwoTime(e.target.value)}
+          />
+          {/* Goal #3 Text */}
+          <Typography variant="subtitle1" gutterBottom>
+            Goal #3
+          </Typography>
+          <TextField
+            variant="outlined"
+            fullWidth
+            value={goalThreeText}
+            onChange={(e) => setGoalThreeText(e.target.value)}
           />
 
           {/* Estimated Time */}
@@ -328,8 +392,8 @@ function Goal() {
           <TextField
             variant="outlined"
             fullWidth
-            value={estimatedTime}
-            onChange={(e) => setEstimatedTime(e.target.value)}
+            value={estimatedThreeTime}
+            onChange={(e) => setEstimatedThreeTime(e.target.value)}
           />
 
           {/* Deadline */}
