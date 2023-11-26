@@ -1,11 +1,17 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import WeekView from './weekview';
 
-const Pages = () => {
+
+
+const Page = () => {
+
   return (
-    <div>
-      <h1>Hello, Next.js!</h1>
-    </div>
+   <WeekView/>
   );
 };
 
-export default Pages;
+export default Page;
