@@ -16,7 +16,9 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
 
 1. user can input their goals
    with summary, estimated time length (in hours), deadline datetime
+
    Endpoint: POST /api/goals/create
+
    Request body:
    {
    "summary": "Complete project report",
@@ -34,7 +36,8 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    }
 
 2. profile feature, user can get the status of how many task done, how many tasks are not done for today
-   GET /api/profile/daily-task-status -
+   GET /api/profile/daily-task-status
+
    Response body:
    {
    "date": "2023-11-25",
@@ -47,6 +50,7 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    }
 
 3. user can mark tasks as complete
+
    PUT /api/goals/complete
    { "taskId": 1 }
 
@@ -57,7 +61,9 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    }
 
 4. when user complete task, they can input debreif for task, such as complete this on time, need more time, or complete early
+
    Endpoint: POST /api/tasks/debrief
+
    request body
    {
    "taskId": 1,
@@ -74,6 +80,7 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    }
 
 5. there would be bar chart implemented used mui that using BarChart, x-axis is the day in monday, tues, wednesday,..., series are the value of number of complete tasks, number of tasks that need more time, number of tasks that complete less time
+
    Endpoint: GET /api/tasks/completion-stats
    {
    "stats": [
@@ -88,7 +95,9 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    }
 
 6. assume the working hour is from 9:00 to 17:00, our app can automatically divide the tasks into different time slots spreading from the days before the deadline based on the break time pereference and also schedule a break time for the users
+
    Endpoint: GET /api/schedule
+
    Response:
    {
    "schedule": [
@@ -115,6 +124,7 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    }
 
 7. Push data from google caleandar
+
    POST /api/events/test
    {
    "title": "test",
@@ -123,6 +133,7 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    }
 
 8. Create User
+
    POST /api/users/create
    {
    "breakDuration": 30,
@@ -130,6 +141,7 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    }
 
 9. Create Events
+
    POST /api/events/create
    {
    "title": "Testing",
