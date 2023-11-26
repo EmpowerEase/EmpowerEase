@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -24,5 +25,5 @@ body {
 }
 
 body {
-  background: #ffffff;
+  background: #F4F7FF;
 }

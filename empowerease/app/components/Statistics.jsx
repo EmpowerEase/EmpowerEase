@@ -13,7 +13,7 @@ const chartSetting = {
     },
   ],
   // width: 500,
-  height: 300,
+  height: 410,
   sx: {
     [`.${axisClasses.left} .${axisClasses.label}`]: {
       transform: "translate(0, 0)",
@@ -73,16 +73,30 @@ export default function TasksCompletionBarChart() {
       xAxis={[{ scaleType: "band", dataKey: "day" }]}
       series={[
         {
+          // color: "#1B2845",
+         
+          color: "#6F73D2",
+         
           dataKey: "completedOnTime",
           label: "OnTime",
           valueFormatter,
         },
         {
+          // color: "#335C81",
+          color: "#83C9F4",
+         
           dataKey: "neededMoreTime",
           label: "MoreTime",
           valueFormatter,
         },
-        { dataKey: "completedEarly", label: "Early", valueFormatter },
+        {
+          // color: "#65AFFF",
+          color: "#A3D5FF",
+         
+          dataKey: "completedEarly",
+          label: "Early",
+          valueFormatter,
+        },
       ]}
       {...chartSetting}
     />

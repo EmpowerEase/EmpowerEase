@@ -42,7 +42,12 @@ const Break = () => {
   return (
     <div>
       {/* Button to open the modal */}
-      <Button variant="outlined" color="primary" onClick={handleOpenModal}>
+      <Button
+        variant="outlined"
+        color="primary"
+        className="btn btn-accent"
+        onClick={handleOpenModal}
+      >
         Add Break
       </Button>
 
@@ -106,6 +111,7 @@ const Break = () => {
           <Button
             variant="outlined"
             color="primary"
+            className="btn btn-accent"
             onClick={handleAddBreak}
             sx={{ marginTop: 2 }}
           >

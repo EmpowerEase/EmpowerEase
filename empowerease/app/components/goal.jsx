@@ -7,7 +7,7 @@ import ListItemText from "@mui/material/ListItemText";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { Box, Button, Modal, Typography, TextField, Slider, InputLabel, MenuItem, FormControl, Select} from "@mui/material";
+import { Box, Button, Modal, Typography, TextField, Slider, InputLabel, MenuItem, Paper, FormControl, Select, Grid} from "@mui/material";
 
 function Goal() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -98,15 +98,24 @@ function Goal() {
   };
 
   
-
   return (
-    <Box
+    <Paper
+      // sx={{
+      //   backgroundColor: "#FFFFF",
+      //   padding: 2,
+      //   borderRadius: 4,
+      //   border: "1px solid black",
+      //   margin: "20px",
+      //   // maxWidth: 360,
+      // }}
+      elevation={3}
       sx={{
-        backgroundColor: "#FFFFF",
-        padding: 2,
-        borderRadius: 4,
-        border: "1px solid black",
-        maxWidth: 360,
+        display: "flex",
+        padding: "20px",
+        flexDirection: "column",
+        height: "270px",
+        background: "linear-gradient(to bottom, #6F73D2, #9ECCF1)", // Blue gradient background
+        color: "white",
       }}
     >
       {/* Add goal button */}
@@ -118,13 +127,18 @@ function Goal() {
           marginBottom: 2,
         }}
       >
-        <h2 style={{ marginRight: "16px" }}>My goal</h2>
+        <h2 className="text-3xl font-bold">My goal</h2>
         <Button
-          variant="outlined"
-          color="primary"
+          variant="contained"
+          // color="primary"
           startIcon={<AddIcon />}
           size="small"
-          sx={{ marginRight: "8px" }}
+          sx={{
+            marginRight: "8px",
+            backgroundColor: "#00CAB5 !important",
+            color: "black !important",
+          }}
+          className="btn btn-accent"
           onClick={handleOpenModal}
         >
           Add
@@ -132,68 +146,76 @@ function Goal() {
       </Box>
       {/* List */}
       {submittedGoals.length === 0 ? (
-        <Typography variant="body1" sx={{ margin: 2 }}>
+        <Typography variant="body1">
           You currently do not have any goals. Add some goals to fill in this
           view
         </Typography>
       ) : (
-        <List sx={{ width: "100%", maxWidth: 360 }}>
+        <List>
           {submittedGoals.map((goal, index) => (
-            <Box
+            <Grid
+              container
               key={index}
               sx={{
-                border: "1px solid black",
+                backgroundColor: "white",
                 borderRadius: 4,
                 marginBottom: 2,
                 overflow: "hidden", // Optional: Hides overflow content
                 padding: "20px",
                 opacity: goal.completed ? 0.5 : 1,
+                color: "black",
               }}
             >
               <ListItem disableGutters>
-                <ListItemText
-                  primary={`Goal: ${goal.goalText}`}
-                  secondary={`Estimated Time: ${goal.estimatedTime}, Deadline: ${goal.deadline}`}
-                />
+                <Grid item xs={12}>
+                  <ListItemText
+                    primary={`Goal: ${goal.goalText}`}
+                    secondary={`Estimated Time: ${goal.estimatedTime}, Deadline: ${goal.deadline}`}
+                  />
+                </Grid>
                 {/* Complete Button */}
-                <Button
-                  variant="outlined"
-                  color={goal.completed ? "secondary" : "primary"}
-                  onClick={() => handleCompleteGoal(index)}
-                  disabled={goal.completed}
-                  sx={{
-                    marginRight: 2,
-                    width: "220px",
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <CheckCircleIcon />
-                  {goal.completed ? "Completed" : "Pending"}
-                </Button>
-                {/* Delete Button */}
-                {!goal.completed && (
+                <Grid item xs={6}>
                   <Button
                     variant="outlined"
-                    // color="secondary"
-                    onClick={() => handleDeleteGoal(index)}
+                    color={goal.completed ? "secondary" : "primary"}
+                    onClick={() => handleCompleteGoal(index)}
+                    disabled={goal.completed}
                     sx={{
-                      color: "#e53935",
-                      border: "1px solid #e53935",
                       marginRight: 2,
                       width: "220px",
                       display: "flex",
-                      flexDirection: "column",
                       alignItems: "center",
+                      flexDirection: "column",
                     }}
                   >
-                    <DeleteIcon />
-                    Delete
+                    <CheckCircleIcon />
+                    {goal.completed ? "Completed" : "Pending"}
                   </Button>
-                )}
+                </Grid>
+                {/* Delete Button */}
+                <Grid item xs={6}>
+                  {!goal.completed && (
+                    <Button
+                      variant="outlined"
+                      // color="secondary"
+                      onClick={() => handleDeleteGoal(index)}
+                      sx={{
+                        color: "#e53935",
+                        border: "1px solid #e53935",
+                        marginRight: 2,
+                        width: "220px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <DeleteIcon />
+                      Delete
+                    </Button>
+                  )}
+                </Grid>
               </ListItem>
-            </Box>
+            </Grid>
           ))}
         </List>
       )}
@@ -318,12 +340,13 @@ function Goal() {
             color="primary"
             onClick={handleAddGoal}
             sx={{ marginTop: 2 }}
+            className="btn btn-accent"
           >
             Add Goal
           </Button>
         </Box>
       </Modal>
-    </Box>
+    </Paper>
   );
 }
 

@@ -1,84 +1,75 @@
 "use client";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import Break from "../components/break";
+import React from "react";
+import { Avatar, Box, Paper, Typography, Grid } from "@mui/material";
+// import profilePicture from "../asset/profilePicture.jpeg";
 
-const Profile = () => {
-  const [taskStatus, setTaskStatus] = useState(null);
-
-  useEffect(() => {
-    const fetchTaskStatus = async () => {
-      try {
-        const response = await fetch("/api/profile/daily-task-status");
-        const data = await response.json();
-        setTaskStatus(data);
-      } catch (error) {
-        console.error("Error fetching task status:", error);
-      }
-    };
-
-    fetchTaskStatus();
-  }, []);
-
-  // Function to calculate the width of the progress bar
-  const calculateProgressWidth = () => {
-    const totalTasks =
-      taskStatus.tasksCompletedToday + taskStatus.tasksNotCompletedToday;
-    return (taskStatus.tasksCompletedToday / totalTasks) * 100;
-  };
-
+const ProfileAvatar = () => {
   return (
-    // <div className="p-4">
-    //   {taskStatus ? (
-    //     <div>
-    //       <h2 className="text-lg font-semibold">Profile</h2>
-    //       <p>Date: {taskStatus.date}</p>
-    //       <div className="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700 overflow-hidden">
-    //         <div
-    //           className="bg-green-500 h-4 rounded-full"
-    //           style={{ width: `${calculateProgressWidth()}%` }}
-    //         ></div>
-    //       </div>
-    //       <div className="flex justify-between text-sm mt-2">
-    //         <p>Tasks Completed: {taskStatus.tasksCompletedToday}</p>
-    //         <p>Tasks Not Completed: {taskStatus.tasksNotCompletedToday}</p>
-    //       </div>
-    //     </div>
-    //   ) : (
-    //     <p>Loading task status...</p>
-    //   )}
-    // </div>
-    <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col lg:flex-row">
-        <img
-          src="/images/stock/photo-1635805737707-575885ab0820.jpg"
-          className="max-w-sm rounded-lg shadow-2xl"
-        />
-        <div>
-          <h1 className="text-5xl font-bold">EmpowerEase</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
-          <div>
-            <progress
-              className="progress progress-accent w-56"
-              value="40"
-              max="100"
-            ></progress>
-            <span className="text-white text-sm">5/10</span>
-          </div>
-          <div>
-            <progress
-              className="progress progress-accent w-56"
-              value="70"
-              max="100"
-            ></progress>
-            <span className="text-white text-sm">7/10</span>
-          </div>
-        </div>
+    <Paper
+      elevation={3}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "270px", 
+        background: "linear-gradient(to bottom, #6F73D2, #9ECCF1)", // Blue gradient background
+        color: "white",
+      }}
+    >
+      {/* <Avatar
+        alt="User Avatar"
+        src="../asset/profilePicture.jpeg"
+        sx={{ width: 50, height: 50, marginBottom: 2, marginTop: 2 }}
+      /> */}
+      <div className="avatar">
+  <div className="w-24 rounded-full">
+    <img src="../asset/profilePicture.jpg" />
+  </div>
+</div>
+      <Typography variant="h6">Jenna Smith</Typography>
+      {/* Add any additional user information or actions */}
+
+      <Grid
+        item
+        xs={6}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "2px",
+          marginTop: "2px",
+        }}
+      >
+        <progress
+          className="progress progress-accent w-56"
+          value="40"
+          max="100"
+        ></progress>
+        <span className="text-white text-sm">5/10</span>
+      </Grid>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "2px",
+          marginTop: "2px",
+        }}
+      >
+        <progress
+          className="progress progress-accent w-56"
+          value="70"
+          max="100"
+        ></progress>
+        <span className="text-white text-sm">7/10</span>
       </div>
-    </div>
+
+      <Grid item xs={3} sx={{ marginTop: 2, marginBottom: 2 }}>
+        <Break />
+      </Grid>
+    </Paper>
   );
 };
 
-export default Profile;
+export default ProfileAvatar;
