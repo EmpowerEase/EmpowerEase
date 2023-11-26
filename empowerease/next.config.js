@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
+
 module.exports = {
+  reactStrictMode: false,
   // Can be safely removed in newer versions of Next.js
   //   webpack(config) {
   //     config.resolve.fallback = {

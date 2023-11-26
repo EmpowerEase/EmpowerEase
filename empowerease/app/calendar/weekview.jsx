@@ -26,14 +26,19 @@ import axios from "axios";
 
 const WeekView = () => {
   const [events, setEvents] = useState([]);
+  const [uploaded, setUploaded] = useState(false);
 
   const fetchData = async () => {
     try {
       const response = await axios.post("http://localhost:3000/api/events", {
-        title: "Demo Data 2",
+        title: "Read documents",
       });
       console.log(response.data.data);
       setEvents(response.data.data);
+      // console.log("----------------------");
+      // console.log(uploaded);
+      // console.log("----------------------");
+
       // Process the response data as needed
       // const google_response = axios.post(
       //   "http://localhost:3000/api/events/test",
@@ -43,23 +48,22 @@ const WeekView = () => {
       //     dateEnd: "2023-11-26T23:59:00.000-05:00",
       //   }
       // );
-      // Promise.all(
-      //   events.map((event) =>
-      //     axios.post("http://localhost:3000/api/events/test", {
-      //       title: event.title,
-      //       dateStart: event.start,
-      //       dateEnd: event.end,
-      //     })
-      //   )
-      // )
-      //   .then((responses) => {
-      //     // Handle responses here
-      //     // 'responses' is an array of all the responses from the axios.post calls
-      //   })
-      //   .catch((error) => {
-      //     // Handle error
-      //     console.error(error);
-      //   });
+
+      if (!uploaded) {
+        console.log("----------------------");
+        console.log(events);
+        console.log("----------------------");
+        for (let i = 0; i < response.data.data.length; i++) {
+          console.log("Im an event!");
+          // events[i];
+          await axios.post("http://localhost:3000/api/events/test", {
+            title: response.data.data[i].title,
+            dateStart: response.data.data[i].start,
+            dateEnd: response.data.data[i].end,
+          });
+        }
+        setUploaded(true);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
       // Handle  error
@@ -68,9 +72,14 @@ const WeekView = () => {
     }
   };
 
-  fetchData();
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      fetchData();
+    }
+    console.log("added");
+  }, []);
 
-  //useEffect(() => {}, []);
+  // fetchData();
 
   return (
     <div className="max-w-screen-lg h-100% mx-auto p-4 overflow-hidden bg-blue-100">
