@@ -7,6 +7,7 @@ const FullCalendar = dynamic(() => import("@fullcalendar/react"), {
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { Box } from "@mui/material";
 import axios from "axios";
+import { updateEvents } from "./googlecalls";
 
 //const TIMEOFFSET = '-05:00';
 
@@ -23,32 +24,6 @@ import axios from "axios";
 //   },
 // ];
 
-export async function getStaticProps() {
-  try {
-    const events = await axios.post("http://localhost:3000/api/events", {
-      title: "Demo Data 2",
-    });
-    // Now you can pass these events to any function that needs them
-    // For example, a hypothetical 'processEvents' function
-    const processedEvents = processEvents(events[0]);
-
-    return {
-      props: {
-        events: processedEvents,
-      },
-      // Add revalidation if needed
-      revalidate: 10,
-    };
-  } catch (err) {
-    console.error(err);
-    return {
-      props: {
-        events: [],
-      },
-    };
-  }
-}
-
 const WeekView = () => {
   const [events, setEvents] = useState([]);
 
@@ -59,24 +34,18 @@ const WeekView = () => {
       });
       console.log(response.data.data);
       setEvents(response.data.data);
-      // Promise.all(
-      //   events.map((event) =>
-      //     axios.post("http://localhost:3000/api/calls", {
-      //       title: event.title,
-      //       start: event.start,
-      //       end: event.end,
-      //     })
-      //   )
-      // )
-      //   .then((responses) => {
-      //     // Handle responses here
-      //     // 'responses' is an array of all the responses from the axios.post calls
-      //     console.log(responses);
-      //   })
-      //   .catch((error) => {
-      //     // Handle error
-      //     console.error(error);
-      //   });
+      Promise.all(
+        events.map((event) => updateEvents(event.title, event.start, event.end))
+      )
+        .then((responses) => {
+          // Handle responses here
+          // 'responses' is an array of all the responses from the axios.post calls
+          console.log(responses);
+        })
+        .catch((error) => {
+          // Handle error
+          console.error(error);
+        });
       // Process the response data as needed
     } catch (error) {
       console.error("Error fetching data:", error);
