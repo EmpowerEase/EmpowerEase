@@ -11,6 +11,7 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
 ![Dashboard](./demo_pic//dashboard.jpg)
 ![Dashboard-Goal](./demo_pic//dashboard-goal.jpg)
 ![Calendar](./demo_pic/calendar.jpg)
+![Calendar-Events](./demo_pic/calendar-events.jpg)
 
 ### Backend Endpoints
 
