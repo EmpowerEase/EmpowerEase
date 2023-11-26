@@ -14,7 +14,7 @@ const ProfileAvatar = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "270px",
+        height: "330px",
         background: "linear-gradient(to bottom, #6F73D2, #9ECCF1)", // Blue gradient background
         color: "white",
       }}

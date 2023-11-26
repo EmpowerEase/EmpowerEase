@@ -95,6 +95,7 @@ function Goal() {
       deadline: deadline,
       completed: false,
     };
+    
 
     setSubmittedGoals((prevGoals) => [...prevGoals, newGoal1, newGoal2, newGoal3]);
 
@@ -135,24 +136,17 @@ function Goal() {
 
   return (
     <Paper
-      // sx={{
-      //   backgroundColor: "#FFFFF",
-      //   padding: 2,
-      //   borderRadius: 4,
-      //   border: "1px solid black",
-      //   margin: "20px",
-      //   // maxWidth: 360,
-      // }}
       elevation={3}
       sx={{
         display: "flex",
         padding: "20px",
         flexDirection: "column",
-        height: "270px",
+        height: "330px",
         background: "linear-gradient(to bottom, #6F73D2, #9ECCF1)", // Blue gradient background
         color: "white",
         overflowY: "scroll",
         overflow: "hidden",
+        mb: 2,
       }}
     >
       {/* Add goal button */}
@@ -162,6 +156,8 @@ function Goal() {
           alignItems: "center",
           justifyContent: "space-between",
           marginBottom: 2,
+          overflowY: "scroll",
+          overflow: "hidden",
         }}
       >
         <h2 className="text-3xl font-bold">My goal</h2>
@@ -188,7 +184,7 @@ function Goal() {
           view
         </Typography>
       ) : (
-        <List>
+        <List sx={{ overflowY: "auto", maxHeight: "200px" }}>
           {submittedGoals.map((goal, index) => (
             <Grid
               container
@@ -198,7 +194,7 @@ function Goal() {
                 borderRadius: 4,
                 marginBottom: 2,
                 overflow: "hidden", // Optional: Hides overflow content
-                padding: "20px",
+                padding: "15px",
                 opacity: goal.completed ? 0.5 : 1,
                 color: "black",
               }}

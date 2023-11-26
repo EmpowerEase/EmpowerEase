@@ -13,7 +13,7 @@ const chartSetting = {
     },
   ],
   // width: 500,
-  height: 410,
+  height: 350,
   sx: {
     [`.${axisClasses.left} .${axisClasses.label}`]: {
       transform: "translate(0, 0)",
