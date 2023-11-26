@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 
-const Pages = () => {
+const CalendarPages = () => {
   return (
     // <>
     //   <Navbar />
@@ -54,4 +54,4 @@ const Pages = () => {
   );
 };
 
-export default Pages;
+export default CalendarPages;
