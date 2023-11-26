@@ -20,25 +20,34 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    Endpoint: POST /api/goals/create
 
    Request body:
+
+```json
    {
    "summary": "Complete project report",
    "estimatedTimeHours": 3,
    "start": "2023-12-01" (ISOStime)
    "end": ISOSt
    }
-   response body:
-   {
-   "taskId": 1,
-   "summary": "Complete project report",
-   "estimatedTimeHours": 3,
-   "deadline": "2023-12-01",
-   "status": "pending"
-   }
+```
+
+response body:
+
+```json
+{
+  "taskId": 1,
+  "summary": "Complete project report",
+  "estimatedTimeHours": 3,
+  "deadline": "2023-12-01",
+  "status": "pending"
+}
+```
 
 2. profile feature, user can get the status of how many task done, how many tasks are not done for today
    GET /api/profile/daily-task-status
 
    Response body:
+
+```json
    {
    "date": "2023-11-25",
    "tasksCompletedToday": 4,
@@ -48,6 +57,7 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    "completedEarly": 2,
    "userId": 6562278547d069cf4f00b7db
    }
+```
 
 3. user can mark tasks as complete
 
@@ -55,16 +65,21 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    { "taskId": 1 }
 
    Response body
-   {
-   "taskId": 1,
-   "status": "completed"
-   }
+
+```json
+{
+  "taskId": 1,
+  "status": "completed"
+}
+```
 
 4. when user complete task, they can input debreif for task, such as complete this on time, need more time, or complete early
 
    Endpoint: POST /api/tasks/debrief
 
    request body
+
+```json
    {
    "taskId": 1,
    "difficulty": 9,
@@ -78,27 +93,33 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    "debrief": "Completed on time",
    "debriefed_at": "2023-11-25T13:00:00.000Z"
    }
+```
 
 5. there would be bar chart implemented used mui that using BarChart, x-axis is the day in monday, tues, wednesday,..., series are the value of number of complete tasks, number of tasks that need more time, number of tasks that complete less time
 
    Endpoint: GET /api/tasks/completion-stats
-   {
-   "stats": [
-   {
-   "date": "2023-11-23",
-   "completedOnTime": 5,
-   "neededMoreTime": 2,
-   "completedEarly": 3
-   },
-   // More data for other dates
-   ]
-   }
+
+```json
+{
+  "stats": [
+    {
+      "date": "2023-11-23",
+      "completedOnTime": 5,
+      "neededMoreTime": 2,
+      "completedEarly": 3
+    }
+    // More data for other dates
+  ]
+}
+```
 
 6. assume the working hour is from 9:00 to 17:00, our app can automatically divide the tasks into different time slots spreading from the days before the deadline based on the break time pereference and also schedule a break time for the users
 
    Endpoint: GET /api/schedule
 
    Response:
+
+```json
    {
    "schedule": [
    {
@@ -122,40 +143,51 @@ EmpowerEase integrates intelligent task scheduling with a focus on well-being, a
    // More schedule data for other dates
    ]
    }
+```
 
 7. Push data from google caleandar
 
    POST /api/events/test
-   {
-   "title": "test",
-   "dateStart": "2023-11-27T19:00:00-05:00",
-   "dateEnd": "2023-11-27T20:00:00-05:00"
-   }
+
+```json
+{
+  "title": "test",
+  "dateStart": "2023-11-27T19:00:00-05:00",
+  "dateEnd": "2023-11-27T20:00:00-05:00"
+}
+```
 
 8. Create User
 
    POST /api/users/create
-   {
-   "breakDuration": 30,
-   "preferredBreakTime": ["morning", "afternoon"]
-   }
+
+```json
+{
+  "breakDuration": 30,
+  "preferredBreakTime": ["morning", "afternoon"]
+}
+```
 
 9. Create Events
 
    POST /api/events/create
-   {
-   "title": "Testing",
-   "start": "2023-11-29T10:00:00-05:00",
-   "end": "2023-11-30T11:00:00-05:00"
-   }
+
+```json
+{
+  "title": "Testing",
+  "start": "2023-11-29T10:00:00-05:00",
+  "end": "2023-11-30T11:00:00-05:00"
+}
+```
 
 ### Prisma Schema
 
+```prisma
 model User {
 id String @id @default(auto()) @map("\_id") @db.ObjectId
 breakDuration Int? // in minutes
 preferredBreakTime String[] // could be 'morning', 'afternoon', 'evening'
-tasks Task[]  
+tasks Task[]
  taskStats TaskStats[]
 createdAt DateTime @default(now())
 updatedAt DateTime @updatedAt
@@ -227,3 +259,4 @@ userId String @map("user_id") @db.ObjectId
 user User? @relation(fields: [userId], references: [id])
 @@unique([userId, date], name: "userId_date")
 }
+```
